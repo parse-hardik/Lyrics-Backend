@@ -4,6 +4,11 @@ import numpy as np
 from numpy import linalg as la
 import operator
 import sys
+try:
+    from stemming.porter2 import stem
+except ImportError:
+    print('You need to install the following stemming package:')
+    sys.exit(0)
 
 file1 = open("songsprocessed.txt",'r')
 file2 = open("wordsprocessed.txt",'r')
@@ -57,13 +62,13 @@ for i in range(0, song_number):
   N+=total_words
 #N 
 
-def get_songs(answer):
-  file = open("answer.txt",'w')
-  # s = len(answer)
-  ar = ""
-  for x in answer.keys():
-   ar = ar + song_name[x]+" "
-  file.write(ar)
+# def get_songs(answer):
+#   file = open("answer.txt",'w')
+#   # s = len(answer)
+#   ar = ""
+#   for x in answer.keys():
+#    ar = ar + song_name[x]+" "
+#   file.write(ar)
 
 ### QUERY FUNCTION
 
@@ -134,7 +139,41 @@ def top_ten_given_query(var):
       print(song_name[x])
   #   return var+1
 
-print(sys.argv[1:])
-
-top_ten_given_query(sys.argv[1:])
+def query_processing(lyrics):
+    
+    # remove end of lines
+    lyrics_flat = lyrics.replace('\r', '\n').replace('\n', ' ').lower()
+    lyrics_flat = ' ' + lyrics_flat + ' '
+    #print("check1")
+    # special cases (English...)
+    lyrics_flat = lyrics_flat.replace("'m ", " am ")
+    lyrics_flat = lyrics_flat.replace("'re ", " are ")
+    lyrics_flat = lyrics_flat.replace("'ve ", " have ")
+    lyrics_flat = lyrics_flat.replace("'d ", " would ")
+    lyrics_flat = lyrics_flat.replace("'ll ", " will ")
+    lyrics_flat = lyrics_flat.replace(" he's ", " he is ")
+    lyrics_flat = lyrics_flat.replace(" she's ", " she is ")
+    lyrics_flat = lyrics_flat.replace(" it's ", " it is ")
+    lyrics_flat = lyrics_flat.replace(" ain't ", " is not ")
+    lyrics_flat = lyrics_flat.replace("n't ", " not ")
+    lyrics_flat = lyrics_flat.replace("'s ", " ")
+    # remove boring punctuation and weird signs
+    punctuation = (',', "'", '"', ",", ';', ':', '.', '?', '!', '(', ')',
+                   '{', '}', '/', '\\', '_', '|', '-', '@', '#', '*')
+    for p in punctuation:
+        lyrics_flat = lyrics_flat.replace(p, '')
+    words = filter(lambda x: x.strip() != '', lyrics_flat.split(' '))
+    # stem words
+    words = map(lambda x: stem(x), words)
+    list_words = []
+    for w in words:
+        #print(w)
+        list_words.append(w)
+    return list_words
+#print(sys.argv[1:])
+s=""
+for i in range(1,len(sys.argv[1:])+1):
+  s = s+sys.argv[i]
+  s = s+" "
+top_ten_given_query(query_processing(s))
 # print(a)
