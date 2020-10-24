@@ -3,24 +3,26 @@
 import numpy as np
 from numpy import linalg as la
 import operator
+import json
 import sys
+import math
 try:
     from stemming.porter2 import stem
 except ImportError:
     print('You need to install the following stemming package:')
     sys.exit(0)
 
-file1 = open("songsprocessed.txt",'r')
+#file1 = open("songsprocessed.txt",'r')
 file2 = open("wordsprocessed.txt",'r')
-songset1 = file1.read()
+#songset1 = file1.read()
 wordset1 = file2.read()
-songset = songset1.split(";")
+#songset = songset1.split(";")
 wordset = wordset1.split(",")
 
 # print(len(songset),len(wordset))
 
-song_number = len(songset)-1
-word_number = len(wordset)
+#song_number = len(songset)-1
+#word_number = len(wordset)
 
 # print(sys.argv[1])
 
@@ -35,31 +37,31 @@ word_number = len(wordset)
 ### PRE-PROCESSING DATASET
 
 #term document frequency table created
-song_name = []
-song_word_freq=[]
-word_song_dict = {}
-N = 0
+# song_name = []
+# song_word_freq=[]
+# word_song_dict = {}
+# N = 0
 
-#creating an empty dictionary corresponding to every word
+# #creating an empty dictionary corresponding to every word
 
-for i in range(0, word_number+1):
-  word_song_dict[i] = {}
+# for i in range(0, word_number+1):
+#   word_song_dict[i] = {}
 
-#we are creating a dictionary here which stores the freq of every word occuring in the song lyrics
+# #we are creating a dictionary here which stores the freq of every word occuring in the song lyrics
 
-for i in range(0, song_number):
-  song_details = songset[i].split(',')
-  song_name.append(song_details[1])
-  l = len(song_details)
-  total_words = 0
-  for j in range(2,l):
-    worddata = song_details[j].split(':')
-    index = int(worddata[0])
-    freq = int(worddata[1])
-    word_song_dict[index][i] = freq
-    total_words+=freq
-  song_word_freq.append(total_words)
-  N+=total_words
+# for i in range(0, song_number):
+#   song_details = songset[i].split(',')
+#   song_name.append(song_details[1])
+#   l = len(song_details)
+#   total_words = 0
+#   for j in range(2,l):
+#     worddata = song_details[j].split(':')
+#     index = int(worddata[0])
+#     freq = int(worddata[1])
+#     word_song_dict[index][i] = freq
+#     total_words+=freq
+#   song_word_freq.append(total_words)
+#   N+=total_words
 #N 
 
 # def get_songs(answer):
@@ -72,14 +74,21 @@ for i in range(0, song_number):
 
 ### QUERY FUNCTION
 
-def top_ten_given_query(var):
+def top_ten_given_query(query):
 
   #get query
  #query = input("Enter your query : ")
 #   print(var)
-  query = var
   q_size = len(query)
-
+  with open("dict.txt","r") as file:
+    word_song_dict = json.load(file)
+    file.close()
+  with open("names.txt","r") as file:
+    song_name = json.load(file)
+    file.close()
+  with open("freq.txt","r") as file:
+    song_word_freq = json.load(file)
+    file.close()
   #get query words present in corpus
   q_dict = {}
   s = False
@@ -105,34 +114,37 @@ def top_ten_given_query(var):
 
     #tf-idf calculation 
 
-    word_doc_freq = np.zeros((song_number,q_length)) 
+    word_doc_freq = np.zeros((210519,q_length)) 
     counter=0
     
     for word in q_word:
-      word_id = wordset.index(word)
+      word_id = str(wordset.index(word)+1)
       doc_freq = len(word_song_dict[word_id])
 
-      idf = np.log(song_number/(doc_freq+1))
+      idf = np.log(210519/(doc_freq+1))
 
       for doc in word_song_dict[word_id]:
-        tf_doc = word_song_dict[word_id][doc]/song_word_freq[doc]
-        word_doc_freq[doc][counter] = tf_doc*idf
+        tf_doc = word_song_dict[word_id][doc]/song_word_freq[int(doc)]
+        word_doc_freq[int(doc)][counter] = tf_doc*idf
       
       counter+=1
 
-      #cosine similarity
+    #cosine similarity
 
     q_freq = np.array(q_freq)
     similarity_dict = {}
-    for i in range(0,song_number):
+    for i in range(0,210519):
       denominator = la.norm(word_doc_freq[i])*la.norm(q_freq)
       if denominator == 0:
         denominator=1
       cos_inv = np.dot(word_doc_freq[i],q_freq)/denominator
       similarity_dict[i] = cos_inv
-    
+
     sorted_dict = sorted(similarity_dict.items(),key=operator.itemgetter(1),reverse=True)
     answer = sorted_dict[0:10]
+    answer.reverse()
+    # for i in range(0,10):
+    #   print(answer[i])
     answer = dict(answer)
   #   get_songs(answer)
     for x in answer.keys():
