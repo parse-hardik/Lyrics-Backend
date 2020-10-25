@@ -1,4 +1,12 @@
 # %cd "/content/drive/My Drive/IR/useFiles"
+"""
+Modules
+numpy
+operator
+json
+sys
+math
+"""
 
 import numpy as np
 from numpy import linalg as la
@@ -25,14 +33,13 @@ wordset = wordset1.split(",")
 #word_number = len(wordset)
 
 # print(sys.argv[1])
+"""
+VARIABLES
 
-# **list of variables**
-
-# 1.   songset - **msd songid,musicmx songid, <word,id> -> freq;** 
-# 2.   wordset - **word,**
-# 3.   song_name - **names of songs**
-# 4.   song_word_freq= **total words in a song**
-# 5.   word_song_dict= **dictionary : ith row-words, jth column-song, cell-frequency of the i-th word in j-th song**
+# 1.   wordset - **collection of all the words to be used in our model** : List
+# 2.   song_name - **names of songs** : List
+# 3.   song_word_freq= **total words in a song** : List
+# 4.   word_song_dict= **dictionary : ith row-words, jth column-song, cell-frequency of the i-th word in j-th song** : Dictionary
 
 ### PRE-PROCESSING DATASET
 
@@ -47,23 +54,22 @@ wordset = wordset1.split(",")
 # for i in range(0, word_number+1):
 #   word_song_dict[i] = {}
 
-# #we are creating a dictionary here which stores the freq of every word occuring in the song lyrics
+FILES
 
-# for i in range(0, song_number):
-#   song_details = songset[i].split(',')
-#   song_name.append(song_details[1])
-#   l = len(song_details)
-#   total_words = 0
-#   for j in range(2,l):
-#     worddata = song_details[j].split(':')
-#     index = int(worddata[0])
-#     freq = int(worddata[1])
-#     word_song_dict[index][i] = freq
-#     total_words+=freq
-#   song_word_freq.append(total_words)
-#   N+=total_words
-#N 
+# 1. dict.txt : we have created a dictionary here which stores the freq of every word occuring in the song lyrics
+# 2. names.txt : a list of song names corresponding to the indices
+# 3. freq.txt : frequency list of number of words each song contains
 
+FUNCTIONS 
+
+# 1. top_ten_given_query(query) : takes the query and prints the top ten songs which are similar to the query using tf-idf method and cosine similarity
+      input parameters : list of strings(words)
+      output : none
+# 2. query_processing(lyrics) : takes the input string and performs pre-processing on the words
+      input parameters : string
+      output : list of strings(words)
+
+"""
 # def get_songs(answer):
 #   file = open("answer.txt",'w')
 #   # s = len(answer)
@@ -73,6 +79,25 @@ wordset = wordset1.split(",")
 #   file.write(ar)
 
 ### QUERY FUNCTION
+
+# PRE_PROCESSING FUNCTION
+
+"""
+def pre_processing():  
+  for i in range(0, song_number):
+    song_details = songset[i].split(',')
+    song_name.append(song_details[1])
+    l = len(song_details)
+    total_words = 0
+    for j in range(2,l):
+      worddata = song_details[j].split(':')
+      index = int(worddata[0])
+      freq = int(worddata[1])
+      word_song_dict[index][i] = freq
+      total_words+=freq
+    song_word_freq.append(total_words)
+    N+=total_words
+"""
 
 def top_ten_given_query(query):
 
@@ -119,6 +144,7 @@ def top_ten_given_query(query):
     
     for word in q_word:
       word_id = str(wordset.index(word)+1)
+
       doc_freq = len(word_song_dict[word_id])
 
       idf = np.log(210519/(doc_freq+1))
