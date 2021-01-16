@@ -1,0 +1,312 @@
+/*font-family: 'Amatic SC', cursive;//weird writing type
+font-family: 'Noto Sans JP', sans-serif;
+font-family: 'Playfair Display', serif;
+font-family: 'Roboto Condensed', sans-serif;
+*/
+html{
+    word-wrap: break-word;
+    font-family: 'Roboto Condensed', sans-serif;
+    background-color: black;
+    
+    background-image:url("https://media.giphy.com/media/Qvp6Z2fidQR34IcwQ5/giphy.gif");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-y: 55px;
+    color: greenyellow;
+    text-align: center;
+
+  }
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px gray; 
+    border-radius: 10px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #2475B0; 
+    border-radius: 50px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #67E6D5; 
+  }
+
+  #logo{
+    padding-top: 20px;
+    width: 24vw;
+    height: 18vw;
+    display: block;
+    margin: auto;
+    transition: all 1s;
+    border-radius: 30 px,50px;
+  }
+  #logo:hover{
+    width:16vw;
+    height:12vw;
+    box-shadow: 0 50px 80px 0 rgba(0, 0, 0, 0.2), 0 30px 50px 0 rgba(0, 0, 0, 0.1);
+  }
+  .icon-bar {
+    position: fixed;
+    top: 70%;
+    right: 0%;
+    transform: translateY(-50%);
+  }
+  .icon-bar a {
+    display: block;
+    text-align: center;
+    padding: 2vh;
+    transition: all 0.3s ease;
+    color: white;
+    font-size: 2vh;
+    border-radius: 0px 50px;
+    opacity: 0.7;
+  }
+  
+  .facebook {
+    background: #3B5998;
+    color: white;
+  }
+  .twitter {
+    background: #4a9ddd;
+    color: white;
+  }
+  
+  .linkedin {
+    background: #007bb5;
+    color: white;
+  }
+  
+  .instagram{
+    background: #b85757;
+    color: white;
+    
+  }
+  #hidden {
+display: none;
+ }
+ .instagram:hover #hidden,.facebook:hover #hidden,.twitter:hover #hidden,.linkedin:hover #hidden{
+     display: inline;
+ }
+  .instagram:hover,.facebook:hover,.twitter:hover,.linkedin:hover{
+    padding: 15px;
+font-size: 1.5vh;
+    border-radius:50px 0px 0px 50px ;
+    opacity: 2;
+  }
+  .content,.content p{
+    font-family: 'Amatic SC', cursive;
+    font-size: 4vh;
+    transition: all 1s ease-in-out;
+    width: 100%;
+  }
+  .content p:hover{
+    color:pink;
+    text-shadow: -1px 1px 20px #ffc, 1px -1px 20px #fff; 
+  }
+
+  .searchBox {
+    position: absolute;
+    left: 50%;
+    transform:  translate(-50%,0%);
+    background: #383838;
+    height: 40px;
+    border-radius: 50px;
+    padding: 10px;
+
+}
+
+.searchBox:hover > .searchInput {
+    width: 400px;
+    font-size: 15px;
+    padding: 0 6px;
+}
+
+.searchBox:hover > .searchButton {
+  background:greenyellow;
+  font-size: 15px;
+  font-style: italic;
+  color : #2f3640;
+}
+
+.searchButton {
+    color:greenyellow;
+    font-size: 15px;
+    float: right;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #2f3640;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.4s;
+}
+
+.searchInput {
+    border:none;
+    background: none;
+    font-family: 'Noto Sans JP', sans-serif;
+    outline:none;
+    float:left;
+    padding: 0;
+    color: greenyellow;
+    font-size: 20px;
+    transition: 0.4s;
+    line-height: 40px;
+    width: 0px;
+
+}
+.wrapper{
+    position: relative;
+    border-radius: 500px, 500px;
+    display: block;
+  }
+  
+  .song {
+    float: left;
+    border-radius:  100px 0px 100px 0px;
+    background-color:transparent;
+    text-align: center;
+    padding: 10px;
+    margin:15px;
+    margin-top: 70px;
+    transition: all 1s ease-in-out;
+    display: block;
+  }
+  .song-text{
+    font-size:15px;
+    padding-left: 15px;
+  }
+  
+  .song-text h1{
+    line-height: .5em;
+    font-family: 'Playfair Display', serif;
+    font-size: 30px;
+    color: #ffffff;
+}
+  .song-text h2 {
+line-height: .5em;
+    font-size: 13px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #0E8DFB;
+    letter-spacing: 0.2em;
+  }
+  .song-text h3{
+    line-height: .5em;
+    font-family: 'Raleway', sans-serif;
+    text-transform: capitalize;
+    font-size: 15px;
+  }
+  .song-text p {
+    font-family: 'Playfair Display', serif;
+    color: #ffffff;
+    line-height: 1.7em;
+    font-size: 18px;
+    font-weight: lighter;
+    overflow: hidden;
+  }
+  
+  .btn {
+    margin-top: 17px;
+    position: relative;
+  }
+  
+  .btn a {
+display:inline-block;
+    margin: 5px;
+    margin-left: 0px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: transparent;
+    border-radius: 60px;
+    font-family: 'Raleway', sans-serif;
+    font-size: 14px;
+    text-transform: capitalize;
+    letter-spacing: 0.2em;
+    color: #ffffff;
+    background-color: rgb(80, 91, 247);
+    cursor: pointer;
+    outline: none;
+  }
+  .song:hover{
+    background-color: #1ff3e9;
+  }
+  .btn a:hover {
+    background-color: #79b0a1;
+  }
+@media screen and (max-width: 620px) {
+.searchBox:hover > .searchInput {
+    width: 150px;
+    padding: 0 6px;
+}
+}
+@-webkit-keyframes hvr-ripple-out {
+    100% {
+      top: -12px;
+      right: -12px;
+      bottom: -12px;
+      left: -12px;
+      opacity: 0;
+    }
+  }
+  @keyframes hvr-ripple-out {
+    100% {
+      top: -12px;
+      right: -12px;
+      bottom: -12px;
+      left: -12px;
+      opacity: 0;
+    }
+  }
+  .hvr-ripple-out {
+    display: inline-block;
+    vertical-align: middle;
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    position: relative;
+  }
+  .hvr-ripple-out:before {
+    content: '';
+    position: absolute;
+    border: rgb(73, 73, 250) solid 6px ;
+    border-radius: 100px 0px 100px  0px;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    animation-duration: 2s;
+  }
+  .hvr-ripple-out:hover:before, .hvr-ripple-out:focus:before, .hvr-ripple-out:active:before {
+    animation-name: hvr-ripple-out;
+  }
+  
+  .footer {
+    position: fixed;
+    display: inline;
+    bottom:5px;
+    left:0px;
+    padding-right: 30px;
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    width: 100%;
+    text-align:right;
+    float:right;
+    box-sizing: border-box;
+  }
+  .footer #deets{
+    text-decoration: none;
+    float: left;
+    color:rgb(87, 253, 4);
+    font-family: 'Noto Sans JP', sans-serif;
+    text-align:left;
+    text-decoration: underline;
+    padding-left: 10px;
+  }
+  #deets a:hover{
+    color:rgb(255, 255, 255);
+  }
